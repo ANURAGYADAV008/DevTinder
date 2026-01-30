@@ -1,0 +1,158 @@
+import { useState } from "react"
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
+import { useNavigate } from "react-router-dom";
+
+const Login = () => {
+  const [emailId, setEmailID] = useState("anurag321@gmail.com");
+  const [password, setPassword] = useState("anurag123@#$");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [error, setError] = useState("");
+  const [isLoginForm, setIsLoginForm] = useState()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogin = async () => {
+    try {
+      const res = await axios.post("http://localhost:3000/login", {
+        "emailId": emailId, "password": password
+      }, { withCredentials: true });
+
+      dispatch(addUser(res.data.user));
+      console.log("data is ",res.data.user)
+      return navigate("/feed")
+    }
+    catch (error) {
+
+      setError(error?.response?.statusText || "Something Went wrong");
+
+    }
+  }
+  const handleSignUp = async () => {
+    try {
+      const res = await axios.post("http://localhost:4003/sighnup", {
+        "firstName": firstName,
+        "lastName": lastName,
+        "email": emailId,
+        "password": password
+
+      }, {
+        withCredentials: true
+      })
+      dispatch(addUser(res.data));
+      return navigate("/profile")
+
+
+    }
+    catch (error) {
+      console.log(error)
+
+    }
+
+  }
+
+  return (
+    <div className="flex justify-center items-center min-h-screen -my-14">
+  <div className="card bg-base-300 w-96 shadow-xl">
+    <div className="card-body gap-4">
+
+      {/* Title */}
+      <h2 className="text-2xl font-bold text-center">
+        {isLoginForm ? "Login" : "Create Account"}
+      </h2>
+
+      {/* Signup fields */}
+      {!isLoginForm && (
+        <>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text font-semibold">First Name</span>
+            </label>
+            <input
+              type="text"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              className="input input-bordered w-full"
+              placeholder="John"
+            />
+          </div>
+
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text font-semibold">Last Name</span>
+            </label>
+            <input
+              type="text"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              className="input input-bordered w-full"
+              placeholder="Doe"
+            />
+          </div>
+        </>
+      )}
+
+      {/* Email */}
+      <div className="form-control">
+        <label className="label">
+          <span className="label-text font-semibold">Email</span>
+        </label>
+        <input
+          type="email"
+          value={emailId}
+          onChange={(e) => setEmailID(e.target.value)}
+          className="input input-bordered w-full"
+          placeholder="john@example.com"
+        />
+      </div>
+
+      {/* Password */}
+      <div className="form-control">
+        <label className="label">
+          <span className="label-text font-semibold">Password</span>
+        </label>
+        <input
+          type="text"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="input input-bordered w-full"
+          placeholder="password"
+        />
+      </div>
+
+      {/* Error */}
+      {error && (
+        <p className="text-error text-sm text-center">{error}</p>
+      )}
+
+      {/* Button */}
+      <button
+        className="btn btn-primary w-full mt-2"
+        onClick={isLoginForm ? handleLogin : handleSignUp}
+      >
+        {isLoginForm ? "Login" : "Sign Up"}
+      </button>
+
+      {/* Switch */}
+      <p
+        className="text-center text-sm mt-2 cursor-pointer text-primary hover:underline "
+        onClick={() => setIsLoginForm((v) => !v)}
+      >
+        {isLoginForm
+          ? "New user? Create an account"
+          : "Already have an account? Login"}
+      </p>
+
+    </div>
+  </div>
+</div>
+
+
+  )
+}
+export default Login
+
+
+
