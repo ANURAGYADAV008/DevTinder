@@ -27,16 +27,16 @@ function Navbar() {
     setUserData(user);
     console.log("userdata is",userdata)
 
-  },[user])
+  },[user])//
   return (
-    <div className="navbar bg-base-300 shadow-sm ">
+    <div className="navbar  bg-gradient-to-br from-[#0b0119] to-[#2f0a7f] shadow-2xl ">
       <div className="flex-1">
         <Link to="/" className="btn btn-ghost text-2xl font-mono font-bold ">DevTinder👩‍💻</Link>
       </div>
       <div className="flex gap-2">
         {
           user&& (
-            <p className="text-purple-500 font-mono font-semibold text-xl"> Welcome {userdata?.message?.firstName}</p>
+            <p className=" font-mono font-semibold text-xl"> Welcome {userdata?.firstName}</p>
           )
         }
         <div className="dropdown dropdown-end">
@@ -57,7 +57,7 @@ function Navbar() {
             tabIndex="-1"
             className="menu menu-sm dropdown-content bg-base-200 rounded-box z-1 mt-3 w-52 p-2 shadow ">
             <li>
-               <Link to="/profile">
+               <Link to="/profile" className="font-mono font-bold">
                 
                 Profile
                
@@ -67,8 +67,16 @@ function Navbar() {
                </Link>
              
             </li>
-            <li><a className=" font-bold">Settings</a></li>
-            <li><a className="font-bold" onClick={() => handleLogout()}>Logout</a></li>
+            <li><a className="font-mono font-bold">Settings</a></li>
+            <li><a className="font-mono font-bold" onClick={() => handleLogout()}>Logout</a></li>
+
+            <Link to="/feed">
+            <li>
+               <li><a className=" font-mono font-bold -ml-2">Feed</a></li>
+
+            </li>
+            
+            </Link>
           </ul>
         </div>
       </div>

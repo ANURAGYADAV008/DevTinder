@@ -16,7 +16,8 @@ const Body = () => {
       const res = await axios.get("http://localhost:3000/profile/view", {
         withCredentials: true,
       });
-      dispatch(addUser(res.data));
+      dispatch(addUser(res.data.message));
+      
     } catch (err) {
       if (err.status === 400) {
         navigate("/login");

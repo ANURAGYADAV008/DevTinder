@@ -8,6 +8,7 @@ import appstore from './utils/Appstore';
 import Feed from './assets/Feed';
 import   Connections from './assets/connection';
 import Navbar from './navcom';
+import Request from '../src/assets/request';
 
 function App() {
   return (
@@ -20,6 +21,8 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/feed" element={<Feed/>}/>
           <Route path="/connections" element={<Connections/>}/>
+          <Route path="/request" element={<Request/>}/>
+
         </Route>
       </Routes>
     </BrowserRouter>

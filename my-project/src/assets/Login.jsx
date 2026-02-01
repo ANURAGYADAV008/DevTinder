@@ -9,6 +9,7 @@ const Login = () => {
   const [password, setPassword] = useState("anurag123@#$");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [age, setAge] = useState();
   const [error, setError] = useState("");
   const [isLoginForm, setIsLoginForm] = useState()
   const dispatch = useDispatch();
@@ -21,22 +22,22 @@ const Login = () => {
       }, { withCredentials: true });
 
       dispatch(addUser(res.data.user));
-      console.log("data is ",res.data.user)
+      console.log("data is ", res.data.user)
       return navigate("/feed")
     }
     catch (error) {
-
-      setError(error?.response?.statusText || "Something Went wrong");
+      setError(error.response.data.message);
 
     }
   }
   const handleSignUp = async () => {
     try {
-      const res = await axios.post("http://localhost:4003/sighnup", {
+      const res = await axios.post("http://localhost:3000/signup", {
         "firstName": firstName,
         "lastName": lastName,
-        "email": emailId,
-        "password": password
+        "emailId": emailId,
+        "password": password,
+        age: age
 
       }, {
         withCredentials: true
@@ -47,7 +48,7 @@ const Login = () => {
 
     }
     catch (error) {
-      console.log(error)
+
 
     }
 
@@ -55,99 +56,115 @@ const Login = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen -my-14">
-  <div className="card bg-base-300 w-96 shadow-xl">
-    <div className="card-body gap-4">
+      <div className="card bg-base-300 w-96 shadow-xl">
+        <div className="card-body gap-4">
 
-      {/* Title */}
-      <h2 className="text-2xl font-bold text-center">
-        {isLoginForm ? "Login" : "Create Account"}
-      </h2>
+          {/* Title */}
+          <h2 className="text-2xl font-bold text-center">
+            {isLoginForm ? "Login" : "Create Account"}
+          </h2>
 
-      {/* Signup fields */}
-      {!isLoginForm && (
-        <>
+          {/* Signup fields */}
+          {!isLoginForm && (
+            <>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text font-semibold">First Name</span>
+                </label>
+                <input
+                  type="text"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  className="input input-bordered w-full"
+                  placeholder="John"
+                />
+              </div>
+
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text font-semibold">Last Name</span>
+                </label>
+                <input
+                  type="text"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  className="input input-bordered w-full"
+                  placeholder="Doe"
+                />
+              </div>
+
+              <div className="form-control">
+
+                <label className="label">
+                  <span className="label-text font-semibold">Age</span>
+                </label>
+                <input
+                  type="number"
+                  value={age}
+                  onChange={(e) => setAge(e.target.value)}
+                  className="input input-bordered w-full"
+                  placeholder=""
+                />
+              </div>
+            </>
+          )}
+
+          {/* Email */}
           <div className="form-control">
             <label className="label">
-              <span className="label-text font-semibold">First Name</span>
+              <span className="label-text font-semibold">Email</span>
             </label>
             <input
-              type="text"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              type="email"
+              value={emailId}
+              onChange={(e) => setEmailID(e.target.value)}
               className="input input-bordered w-full"
-              placeholder="John"
+              placeholder="john@example.com"
             />
           </div>
 
+          {/* Password */}
           <div className="form-control">
             <label className="label">
-              <span className="label-text font-semibold">Last Name</span>
+              <span className="label-text font-semibold">Password</span>
             </label>
             <input
               type="text"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="input input-bordered w-full"
-              placeholder="Doe"
+              placeholder="password"
             />
+
+
           </div>
-        </>
-      )}
 
-      {/* Email */}
-      <div className="form-control">
-        <label className="label">
-          <span className="label-text font-semibold">Email</span>
-        </label>
-        <input
-          type="email"
-          value={emailId}
-          onChange={(e) => setEmailID(e.target.value)}
-          className="input input-bordered w-full"
-          placeholder="john@example.com"
-        />
+          {/* Error */}
+          {error && (
+            <p className="text-error text-sm text-center">{error}</p>
+          )}
+
+          {/* Button */}
+          <button
+            className="btn btn-primary w-full mt-2"
+            onClick={isLoginForm ? handleLogin : handleSignUp}
+          >
+            {isLoginForm ? "Login" : "Sign Up"}
+          </button>
+
+          {/* Switch */}
+          <p
+            className="text-center text-sm mt-2 cursor-pointer text-primary hover:underline "
+            onClick={() => setIsLoginForm((v) => !v)}
+          >
+            {isLoginForm
+              ? "New user? Create an account"
+              : "Already have an account? Login"}
+          </p>
+
+        </div>
       </div>
-
-      {/* Password */}
-      <div className="form-control">
-        <label className="label">
-          <span className="label-text font-semibold">Password</span>
-        </label>
-        <input
-          type="text"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="input input-bordered w-full"
-          placeholder="password"
-        />
-      </div>
-
-      {/* Error */}
-      {error && (
-        <p className="text-error text-sm text-center">{error}</p>
-      )}
-
-      {/* Button */}
-      <button
-        className="btn btn-primary w-full mt-2"
-        onClick={isLoginForm ? handleLogin : handleSignUp}
-      >
-        {isLoginForm ? "Login" : "Sign Up"}
-      </button>
-
-      {/* Switch */}
-      <p
-        className="text-center text-sm mt-2 cursor-pointer text-primary hover:underline "
-        onClick={() => setIsLoginForm((v) => !v)}
-      >
-        {isLoginForm
-          ? "New user? Create an account"
-          : "Already have an account? Login"}
-      </p>
-
     </div>
-  </div>
-</div>
 
 
   )

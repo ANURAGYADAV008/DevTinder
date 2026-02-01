@@ -2,12 +2,13 @@ import axios from "axios"
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { addconnections } from "../utils/connectionslise";
+import RequestCard from "./requestcard";
 const Connections=()=>{
 
-    const dispatch=useDispatch();
+const dispatch=useDispatch();
 const FetchConnections=async()=>{
         try{
-            const res=await axios.get("http://localhost:4003/user/connections",{
+            const res=await axios.get("http://localhost:3000/user/connections",{
                 withCredentials:true
                 
             })
@@ -21,6 +22,7 @@ const FetchConnections=async()=>{
         }
    };
     useEffect(()=>{
+      //call functions one time when load
         FetchConnections();
     })
 
@@ -34,16 +36,9 @@ const FetchConnections=async()=>{
   <div className="justify-items-center my-7">
     <h1 className="font-bold text-2xl">Connections</h1>
 
-    {Connections.map((connection, index) => {
-      const { firstName, lastName, age, gender, photoUrl, about } = connection;
+    {Connections.map((user, index) => {
       return (
-        <div key={index}>
-          <img
-            alt="photo"
-            className="w-20 h-20"
-            src={photoUrl}
-          />
-        </div>
+          <RequestCard key={index} user={user}/>
       );
     })}
   </div>
