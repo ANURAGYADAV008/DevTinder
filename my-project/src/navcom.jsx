@@ -9,25 +9,25 @@ function Navbar() {
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [userdata,setUserData]=useState();
-  console.log("naviagetuser is",user);
+  const [userdata, setUserData] = useState();
+  console.log("naviagetuser is", user);
 
   const handleLogout = async () => {
-   
-      await axios.post(
-        "http://localhost:3000/logout",
-        {},
-        { withCredentials: true }
-      );
-      dispatch(removeUser());
-      navigate("/login");
+
+    await axios.post(
+      "http://localhost:3000/logout",
+      {},
+      { withCredentials: true }
+    );
+    dispatch(removeUser());
+    navigate("/login");
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     setUserData(user);
-    console.log("userdata is",userdata)
+    console.log("userdata is", userdata)
 
-  },[user])//
+  }, [user])//
   return (
     <div className="navbar  bg-gradient-to-br from-[#0b0119] to-[#2f0a7f] shadow-2xl ">
       <div className="flex-1">
@@ -35,7 +35,7 @@ function Navbar() {
       </div>
       <div className="flex gap-2">
         {
-          user&& (
+          user && (
             <p className=" font-mono font-semibold text-xl"> Welcome {userdata?.firstName}</p>
           )
         }
@@ -55,29 +55,43 @@ function Navbar() {
           }
           <ul
             tabIndex="-1"
-            className="menu menu-sm dropdown-content bg-base-200 rounded-box z-1 mt-3 w-52 p-2 shadow ">
+            className="menu menu-sm dropdown-content bg-base-200 rounded-box z-1 mt-3 w-52 p-2 shadow"
+          >
             <li>
-               <Link to="/profile" className="font-mono font-bold">
-                
-                Profile
-               
-                <span className="badge">New</span>
-
-               
-               </Link>
-             
+              <Link to="/profile" className="font-mono font-bold">
+                Profile <span className="badge">New</span>
+              </Link>
             </li>
-            <li><a className="font-mono font-bold">Settings</a></li>
-            <li><a className="font-mono font-bold" onClick={() => handleLogout()}>Logout</a></li>
 
-            <Link to="/feed">
             <li>
-               <li><a className=" font-mono font-bold -ml-2">Feed</a></li>
-
+             <Link to="/request" className="font-mono font-bold">
+                Request <span className="badge">New</span>
+              </Link>
             </li>
+
             
-            </Link>
+            <li>
+             <Link to="/connections" className="font-mono font-bold">
+                Connections <span className="badge">New</span>
+              </Link>
+            </li>
+
+            <li>
+              <button
+                className="font-mono font-bold"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+            </li>
+
+            <li>
+              <Link to="/feed" className="font-mono font-bold">
+                Feed
+              </Link>
+            </li>
           </ul>
+
         </div>
       </div>
     </div>

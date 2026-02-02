@@ -1,7 +1,10 @@
 import axios from "axios";
+import { useState } from "react";
+
 
 const RequestCard = ({ user }) => {
     const fromUser = user?.fromUserid;
+    const [hidebtn,setHidebtn]=useState(true);
 
 
     if (!fromUser) return null;
@@ -18,6 +21,7 @@ const RequestCard = ({ user }) => {
 
     const handlerequest = async (status) => {
         try {
+            setHidebtn((prev)=>!prev);
             const res = await axios.post(
                 `http://localhost:3000/request/review/${status}/${_id}`,
                 {},
@@ -71,7 +75,9 @@ const RequestCard = ({ user }) => {
             </div>
 
             {/* Right: Actions */}
-            <div className="flex gap-2">
+            {
+                hidebtn &&(
+                    <div className="flex gap-2">
                 <button className="btn btn-sm btn-success" onClick={() => handlerequest('accepted')}>
                     Accept
                 </button>
@@ -79,6 +85,8 @@ const RequestCard = ({ user }) => {
                     Reject
                 </button>
             </div>
+                )
+            }
         </div>
     );
 };

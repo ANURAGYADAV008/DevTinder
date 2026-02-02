@@ -1,50 +1,51 @@
-import axios from "axios"
+import axios from "axios";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addconnections } from "../utils/connectionslise";
-import RequestCard from "./requestcard";
-const Connections=()=>{
+import Connectioncard from "./connectioncard";
 
-const dispatch=useDispatch();
-const FetchConnections=async()=>{
-        try{
-            const res=await axios.get("http://localhost:3000/user/connections",{
-                withCredentials:true
-                
-            })
-            console.log(res)
-            dispatch(addconnections(res.data))
-            
+const Connections = () => {
+  const dispatch = useDispatch();
 
-        }catch(error){
-            console.log(error)
+  const connections = useSelector((store) => store.connections);
+  console.log("Connection is",connections)
 
-        }
-   };
-    useEffect(()=>{
-      //call functions one time when load
-        FetchConnections();
-    })
-
-    if(!Connections) return;
-    if(Connections.length===0) return(
-       <div className="justify-items-center my-7  ">
-           <h1 className=" text-bold text-2xl  ">No connection Request</h1>
-        </div> 
-    )
-   return (
-  <div className="justify-items-center my-7">
-    <h1 className="font-bold text-2xl">Connections</h1>
-
-    {Connections.map((user, index) => {
-      return (
-          <RequestCard key={index} user={user}/>
+  const FetchConnections = async () => {
+    try {
+      const res = await axios.get(
+        "http://localhost:3000/user/connections",
+        { withCredentials: true }
       );
-    })}
-  </div>
-);
 
-}
+      dispatch(addconnections(res.data?.data));
+      console.log("is running",res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
+  useEffect(() => {
+    FetchConnections();
+  }, []);
 
-export default Connections
+  if (!connections) return null;
+
+  if (connections.length === 0)
+    return (
+      <div className="justify-items-center my-7">
+        <h1 className="font-bold text-2xl">No connection Request</h1>
+      </div>
+    );
+
+  return (
+    <div className="justify-items-center my-7 mt-3">
+      <h1 className="font-bold text-2xl py-2 font-mono">Connections</h1>
+
+      {connections.map((user) => (
+        <Connectioncard key={user?.id} user={user} />
+      ))}
+    </div>
+  );
+};
+
+export default Connections;

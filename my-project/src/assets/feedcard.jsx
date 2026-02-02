@@ -75,9 +75,11 @@
 // );
 // }
 // export default Feedcard;
+// src/components/Feedcard.jsx
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { removeUserFromFeed } from "../utils/feedslice";
+import { useState } from "react";
 
 const Feedcard = ({ user }) => {
   const dispatch = useDispatch();
@@ -92,7 +94,7 @@ const Feedcard = ({ user }) => {
         {},
         { withCredentials: true }
       );
-      dispatch(removeUserFromFeed());
+      dispatch(removeUserFromFeed(_id));
     } catch (err) {
       console.log(err);
     }
@@ -129,7 +131,7 @@ const Feedcard = ({ user }) => {
           <div className="flex justify-between items-center mt-10 px-4">
             <button
               className="btn btn-circle bg-white/10 border-none hover:bg-red-500/80 transition"
-              onClick={() => handleSendRequest("ignored")}
+              onClick={() => handleSendRequest("ignore")}
             >
               ❌
             </button>

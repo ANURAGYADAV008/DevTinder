@@ -55,116 +55,120 @@ const Login = () => {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen -my-14">
-      <div className="card bg-base-300 w-96 shadow-xl">
-        <div className="card-body gap-4">
+<div className="flex justify-center items-center min-h-screen -my-14">
+  <div className="card bg-gradient-to-br from-slate-800 to-slate-900
+    w-96 shadow-2xl border border-slate-700">
+    
+    <div className="card-body gap-4">
 
-          {/* Title */}
-          <h2 className="text-2xl font-bold text-center">
-            {isLoginForm ? "Login" : "Create Account"}
-          </h2>
+      {/* Title */}
+      <h2 className="text-2xl font-bold text-center text-indigo-300 font-mono ">
+        {isLoginForm ? "Login" : "Create Account"}
+      </h2>
 
-          {/* Signup fields */}
-          {!isLoginForm && (
-            <>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text font-semibold">First Name</span>
-                </label>
-                <input
-                  type="text"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  className="input input-bordered w-full"
-                  placeholder="John"
-                />
-              </div>
-
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text font-semibold">Last Name</span>
-                </label>
-                <input
-                  type="text"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  className="input input-bordered w-full"
-                  placeholder="Doe"
-                />
-              </div>
-
-              <div className="form-control">
-
-                <label className="label">
-                  <span className="label-text font-semibold">Age</span>
-                </label>
-                <input
-                  type="number"
-                  value={age}
-                  onChange={(e) => setAge(e.target.value)}
-                  className="input input-bordered w-full"
-                  placeholder=""
-                />
-              </div>
-            </>
-          )}
-
-          {/* Email */}
+      {/* Signup fields */}
+      {!isLoginForm && (
+        <>
           <div className="form-control">
-            <label className="label">
-              <span className="label-text font-semibold">Email</span>
-            </label>
-            <input
-              type="email"
-              value={emailId}
-              onChange={(e) => setEmailID(e.target.value)}
-              className="input input-bordered w-full"
-              placeholder="john@example.com"
-            />
-          </div>
-
-          {/* Password */}
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text font-semibold">Password</span>
+            <label className="label text-indigo-300 font-mono font-semibold ">
+              First Name
             </label>
             <input
               type="text"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="input input-bordered w-full"
-              placeholder="password"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              className="input bg-slate-700 text-indigo-100 placeholder-indigo-300
+              focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono"
             />
-
-
           </div>
 
-          {/* Error */}
-          {error && (
-            <p className="text-error text-sm text-center">{error}</p>
-          )}
+          <div className="form-control -mt-2">
+            <label className="label text-indigo-300 font-mono font-semibold">
+              Last Name
+            </label>
+            <input
+              type="text"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              className="input bg-slate-700 text-indigo-100
+              focus:ring-2 focus:ring-indigo-500 font-mono"
+            />
+          </div>
 
-          {/* Button */}
-          <button
-            className="btn btn-primary w-full mt-2"
-            onClick={isLoginForm ? handleLogin : handleSignUp}
-          >
-            {isLoginForm ? "Login" : "Sign Up"}
-          </button>
+          <div className="form-control -mt-2">
+            <label className="label text-indigo-300 font-mono font-semibold">
+              Age
+            </label>
+            <input
+              type="number"
+              value={age}
+              onChange={(e) => setAge(e.target.value)}
+              className="input bg-slate-700 text-indigo-100
+              focus:ring-2 focus:ring-indigo-500 font-mono"
+            />
+          </div>
+        </>
+      )}
 
-          {/* Switch */}
-          <p
-            className="text-center text-sm mt-2 cursor-pointer text-primary hover:underline "
-            onClick={() => setIsLoginForm((v) => !v)}
-          >
-            {isLoginForm
-              ? "New user? Create an account"
-              : "Already have an account? Login"}
-          </p>
-
-        </div>
+      {/* Email */}
+      <div className="form-control -mt-2">
+        <label className="label text-indigo-300 font-mono font-semibold">
+          Email
+        </label>
+        <input
+          type="email"
+          value={emailId}
+          onChange={(e) => setEmailID(e.target.value)}
+          className="input bg-slate-700 text-indigo-100 placeholder-indigo-300
+          focus:ring-2 focus:ring-indigo-500 font-mono"
+        />
       </div>
+
+      {/* Password */}
+      <div className="form-control -mt-2">
+        <label className="label text-indigo-300 font-mono font-semibold">
+          Password
+        </label>
+        <input
+          type="text"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="input bg-slate-700 text-indigo-100
+          focus:ring-2 focus:ring-indigo-500 font-mono"
+        />
+      </div>
+
+      {/* Error */}
+      {error && (
+        <p className="text-red-400 text-sm text-center font-mono">
+          {error}
+        </p>
+      )}
+
+      {/* Button */}
+      <button
+        className="btn mt-2 bg-indigo-600 hover:bg-indigo-500
+        border-none text-white font-mono tracking-wide shadow-md"
+        onClick={isLoginForm ? handleLogin : handleSignUp}
+      >
+        {isLoginForm ? "Login" : "Sign Up"}
+      </button>
+
+      {/* Switch */}
+      <p
+        className="text-center text-sm mt-2 cursor-pointer
+        text-indigo-400 hover:underline font-mono"
+        onClick={() => setIsLoginForm((v) => !v)}
+      >
+        {isLoginForm
+          ? "New user? Create an account"
+          : "Already have an account? Login"}
+      </p>
+
     </div>
+  </div>
+</div>
+
 
 
   )
