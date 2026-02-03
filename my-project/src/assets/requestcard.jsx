@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { BASE_URL } from "../utils/constant";
 
 
 const RequestCard = ({ user }) => {
@@ -23,7 +24,7 @@ const RequestCard = ({ user }) => {
         try {
             setHidebtn((prev)=>!prev);
             const res = await axios.post(
-                `http://localhost:3000/request/review/${status}/${_id}`,
+                BASE_URL+`/request/review/${status}/${_id}`,
                 {},
                 { withCredentials: true }
             );

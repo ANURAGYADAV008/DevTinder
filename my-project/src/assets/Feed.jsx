@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addFeed } from "../utils/feedslice";
 import { useEffect } from "react";
 import Feedcard from "./feedcard";
+import { BASE_URL } from "../utils/constant";
 
 const Feed = () => {
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ const Feed = () => {
 
     try {
       const res = await axios.get(
-        "http://localhost:3000/user/feed",
+        BASE_URL+"/user/feed",
         { withCredentials: true }
       );
       dispatch(addFeed(res?.data?.users || []));

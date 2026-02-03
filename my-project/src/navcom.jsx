@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { removeUser } from "./utils/userSlice";
 import Connections from "./assets/connection";
 import { useEffect, useState } from "react";
+import { BASE_URL } from "./utils/constant";
 
 function Navbar() {
   const user = useSelector((store) => store.user);
@@ -15,7 +16,7 @@ function Navbar() {
   const handleLogout = async () => {
 
     await axios.post(
-      "http://localhost:3000/logout",
+      BASE_URL+"/logout",
       {},
       { withCredentials: true }
     );

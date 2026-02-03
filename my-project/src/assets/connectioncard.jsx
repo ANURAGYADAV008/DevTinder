@@ -1,6 +1,7 @@
 const Connectioncard=({user})=>{
     console.log("current user is",user)
-    const {firstName,lastName,age,about,skills,photoUrl}=user?.fromUserid
+    const {firstName,lastName,age,about,skills,photoUrl}=user||"";
+    if(user===null)return ;
 
     return(
         <div className="flex items-center justify-between 

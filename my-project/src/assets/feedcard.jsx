@@ -80,6 +80,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { removeUserFromFeed } from "../utils/feedslice";
 import { useState } from "react";
+import { BASE_URL } from "../utils/constant";
 
 const Feedcard = ({ user }) => {
   const dispatch = useDispatch();
@@ -90,7 +91,7 @@ const Feedcard = ({ user }) => {
   const handleSendRequest = async (status) => {
     try {
       await axios.post(
-        `http://localhost:3000/request/send/${status}/${_id}`,
+        BASE_URL+`/request/send/${status}/${_id}`,
         {},
         { withCredentials: true }
       );
