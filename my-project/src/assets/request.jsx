@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addRequest } from "../utils/requestslice";
 import { useEffect } from "react";
 import RequestCard from "./requestcard";
+import { BASE_URL } from "../utils/constant";
 
 const Request = () => {
   const request = useSelector((store) => store.request);
@@ -11,7 +12,7 @@ const Request = () => {
   const getrequest = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:3000/user/request",
+        BASE_URL+"user/request",
         { withCredentials: true }
       );
 
