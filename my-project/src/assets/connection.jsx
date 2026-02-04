@@ -39,7 +39,7 @@ const Connections = () => {
     );
 
   return (
-    <div className="justify-items-center my-7 mt-3">
+    <div className="justify-items-center my-7 mt-3 mb-20">
       <h1 className="font-bold text-2xl py-2 font-mono">Connections</h1>
 
       {connections.map((user) => (

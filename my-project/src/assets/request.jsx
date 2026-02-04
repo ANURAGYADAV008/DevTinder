@@ -12,7 +12,7 @@ const Request = () => {
   const getrequest = async () => {
     try {
       const res = await axios.get(
-        BASE_URL+"user/request",
+        BASE_URL+"/user/request",
         { withCredentials: true }
       );
 
