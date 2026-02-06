@@ -57,8 +57,8 @@ const Login = () => {
 
   return (
 <div className="flex justify-center items-center min-h-screen -my-14">
-  <div className="card bg-gradient-to-br from-slate-800 to-slate-900
-    w-96 shadow-2xl border border-slate-700">
+  <div className="card bg-linear-to-br from-slate-800 to-slate-900
+      w-96 shadow-2xl border border-slate-700">
     
     <div className="card-body gap-4">
 

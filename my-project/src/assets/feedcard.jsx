@@ -104,10 +104,10 @@ const Feedcard = ({ user }) => {
   return (
     <div className="flex justify-center mt-16">
       {/* Background Card */}
-      <div className="relative w-80 h-[420px] rounded-3xl bg-gradient-to-br from-[#1e1b4b] to-[#312e81] shadow-2xl ">
+      <div className="relative w-80 h-105 rounded-3xl bg-linear-to-br from-[#1e1b4b] to-[#312e81] shadow-2xl ">
 
         {/* Profile Image */}
-        <div className="absolute top-[-60px] left-1/2 -translate-x-1/2 mt-25">
+        <div className="absolute -top-15 left-1/2 -translate-x-1/2 mt-25">
           <div className="w-32 h-32 rounded-full border-4 border-white overflow-hidden shadow-xl">
             <img
               src={photoUrl}
